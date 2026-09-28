@@ -1,0 +1,19 @@
+# Name,     Type, SubType,   Offset,    Size,    Flags
+# ------------------------------------------------------------------
+# Two app slots so ONE ESP32 can boot either SketchA (ota_0) or
+# SketchB (ota_1). Which one boots is decided at runtime via
+# esp_ota_set_boot_partition() (see BootSelect.h in each sketch),
+# not by which one was flashed most recently.
+#
+# Blank otadata on first flash defaults to ota_0, so whatever you
+# flash there (SketchA, in this template) runs first.
+#
+# Total used: 0x310000 (~3.06 MB) -- fits a standard 4MB flash module.
+# Bump app0/app1 size (keep offsets 4KB-aligned) if your sketches +
+# libraries don't fit in 1.5MB each -- check the IDE's "Sketch uses
+# X bytes" output after compiling.
+# ------------------------------------------------------------------
+nvs,        data, nvs,       0x9000,   0x5000,
+otadata,    data, ota,       0xe000,   0x2000,
+app0,       app,  ota_0,     0x10000,  0x180000,
+app1,       app,  ota_1,     0x190000, 0x180000,
